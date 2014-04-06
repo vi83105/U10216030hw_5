@@ -6,8 +6,10 @@ import javax.swing.border.TitledBorder;
 
 import java.util.Scanner;
 public class calculatorGUI extends JFrame {
+	double result=0;
+	double input=0;
 	private JTextField jtfScreen = new JTextField("0");
-	
+	private int oper = 0;//0:null,1:add,2:sub,3:*,4:/
 	private JButton jbt0 = new JButton("0");
 	private JButton jbt1 = new JButton("1");
 	private JButton jbt2 = new JButton("2");
@@ -33,7 +35,6 @@ public class calculatorGUI extends JFrame {
 	private JButton jbtDivides = new JButton("/");
 	private JButton jbtPoint = new JButton(".");
 	private JButton jbtEqual = new JButton("=");
-	
 	
 	
 	public calculatorGUI(){
@@ -103,7 +104,7 @@ public class calculatorGUI extends JFrame {
 	
 	
 	public static void main(String[] args) {
-	calculatorGUI frame = new calculatorGUI();
+	Passwords frame = new Passwords();
 	frame.setTitle("calculator");
 	frame.setLocationRelativeTo(null); // Center the frame
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,10 +123,12 @@ public class calculatorGUI extends JFrame {
 		}
 		return result;
 	};
+	
 	class ButtonListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e){
+			try{
 			if(e.getSource() == jbt0){
 				jtfScreen.setText(jtfScreen.getText()+"0");{}
 			}
@@ -156,10 +159,68 @@ public class calculatorGUI extends JFrame {
 		else if(e.getSource() == jbt9){
 			jtfScreen.setText(jtfScreen.getText()+"9");{}
 		}
-		else if(e.getSource()==jbtPlus){}
-		else if(e.getSource()==jbtMinus){}
-		else if(e.getSource()==jbtTimes){}
-		else if(e.getSource()==jbtDivides){}
+		else if(e.getSource() == jbtSqrt){
+			jtfScreen.setText(jtfScreen.getText()+"5");{}
+		}
+		else if(e.getSource() == jbtPoint){
+			jtfScreen.setText(jtfScreen.getText()+".");{}
+		}
+		else if(e.getSource() == jbtC){
+			jtfScreen.setText(jtfScreen.getText()+result);{}
+		}
+		else if(e.getSource()==jbtPlus){ oper = 1;result=Double.parseDouble(jtfScreen.getText());jtfScreen.setText("");}
+		else if(e.getSource()==jbtMinus){ oper = 2;result=Double.parseDouble(jtfScreen.getText());jtfScreen.setText("");}
+		else if(e.getSource()==jbtTimes){ oper = 3;result=Double.parseDouble(jtfScreen.getText());jtfScreen.setText("");}
+		else if(e.getSource()==jbtDivides){ oper = 4;result=Double.parseDouble(jtfScreen.getText());jtfScreen.setText("");}
+		else if(e.getSource()==jbtEqual){ if(oper==1){jtfScreen.setText(result+Double.parseDouble(jtfScreen.getText())+"");}else if(oper==2){jtfScreen.setText(result-Double.parseDouble(jtfScreen.getText())+"");}else if(oper==3){jtfScreen.setText(result*Double.parseDouble(jtfScreen.getText())+"");}else if(oper==4){jtfScreen.setText(result/Double.parseDouble(jtfScreen.getText())+"");}
+			
+		}}catch(Exception ex){}			
+	}
+}
+}
+//Create the password class
+class Passwords extends JFrame{
+	calculatorGUI frame = new calculatorGUI();
+	
+	//Create text field and button
+	private JTextField jtfPassword = new JTextField();
+	private JTextField jtfWrong = new JTextField();
+	private JButton jbtOk = new JButton("OK");
+	
+	public Passwords(){
+		// Panel p1 to hold label, text fields and button
+		JPanel p1 = new JPanel(new GridLayout(4, 1));
+		p1.add(new JLabel("Enter the password:"));
+		p1.add(jtfPassword);
+		p1.add(jtfWrong);
+		jtfWrong.setEditable(false);
+		p1.add(jbtOk);
+		
+		// Add the panel to the frame
+		add(p1, BorderLayout.CENTER);
+		
+		 // Register listener
+	    jbtOk.addActionListener(new ButtonListener());
+	}
+	
+	String password = "0000";
+	
+	/** Handle the OK button */
+	private class ButtonListener implements ActionListener{
+		@Override/**Implement actionPerformed*/
+		public void actionPerformed(ActionEvent e){
+			//The action after you type the password
+			if(jtfPassword.getText().equals(password)){
+				setVisible(false);
+				frame.setSize(800, 400);
+				frame.setTitle("calculator");
+				frame.setLocationRelativeTo(null); // Center the frame
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			    frame.setVisible(true);
 			}
+			//Type wrong password
+			else
+				jtfWrong.setText("Please enter again!");
+		}
 	}
 }

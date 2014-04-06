@@ -4,8 +4,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
+import java.util.Scanner;
 public class calculatorGUI extends JFrame {
-	private JTextField jtfScreen = new JTextField();
+	private JTextField jtfScreen = new JTextField("0");
 	
 	private JButton jbt0 = new JButton("0");
 	private JButton jbt1 = new JButton("1");
@@ -33,8 +34,11 @@ public class calculatorGUI extends JFrame {
 	private JButton jbtPoint = new JButton(".");
 	private JButton jbtEqual = new JButton("=");
 	
-public calculatorGUI(){
+	
+	
+	public calculatorGUI(){
 	JPanel PScreen = new JPanel(new GridLayout(1,1));
+	jtfScreen.setEditable(false);
 	PScreen.add(jtfScreen);
 	JPanel PB1 = new JPanel(new GridLayout(2,5));
 	PB1.add(jbtONOFF);
@@ -70,8 +74,35 @@ public calculatorGUI(){
 	add(PB2,BorderLayout.CENTER);
 	add(PB3,BorderLayout.WEST);
 	
+	jbt0.addActionListener(new ButtonListener());
+	jbt1.addActionListener(new ButtonListener());
+	jbt2.addActionListener(new ButtonListener());
+	jbt3.addActionListener(new ButtonListener());
+	jbt4.addActionListener(new ButtonListener());
+	jbt5.addActionListener(new ButtonListener());
+	jbt6.addActionListener(new ButtonListener());
+	jbt7.addActionListener(new ButtonListener());
+	jbt8.addActionListener(new ButtonListener());
+	jbt9.addActionListener(new ButtonListener());
+	jbtSqrt.addActionListener(new ButtonListener());
+	jbtPoint.addActionListener(new ButtonListener());
+	jbtPercent.addActionListener(new ButtonListener());
+	jbtC.addActionListener(new ButtonListener());
+	jbtONOFF.addActionListener(new ButtonListener());
+	jbtEqual.addActionListener(new ButtonListener());
+	jbtDivides.addActionListener(new ButtonListener());
+	jbtTimes.addActionListener(new ButtonListener());
+	jbtMinus.addActionListener(new ButtonListener());
+	jbtPlus.addActionListener(new ButtonListener());
+	jbtAC.addActionListener(new ButtonListener());
+	jbtMM.addActionListener(new ButtonListener());
+	jbtMP.addActionListener(new ButtonListener());
+	jbtMR.addActionListener(new ButtonListener());
+	jbtMC.addActionListener(new ButtonListener());
 	}
-public static void main(String[] args) {
+	
+	
+	public static void main(String[] args) {
 	calculatorGUI frame = new calculatorGUI();
 	frame.setTitle("calculator");
 	frame.setLocationRelativeTo(null); // Center the frame
@@ -80,5 +111,55 @@ public static void main(String[] args) {
 	frame.setSize(800, 400);
 	//set the frame visible
 	frame.setVisible(true);
-}
+	}
+	public double operation(int sign, double result, double input){
+		switch(sign){
+		case 0 : result = result+input; break;
+		case 1 : result = result+input; break;
+		case 2 : result = result+input; break;
+		case 3 : result = result+input; break;
+		case 4 : result = result+input; break;
+		}
+		return result;
+	};
+	class ButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource() == jbt0){
+				jtfScreen.setText(jtfScreen.getText()+"0");{}
+			}
+		else if(e.getSource() == jbt1){
+			jtfScreen.setText(jtfScreen.getText()+"1");{}
+		}
+		else if(e.getSource() == jbt2){
+			jtfScreen.setText(jtfScreen.getText()+"2");{}
+		}
+		else if(e.getSource() == jbt3){
+			jtfScreen.setText(jtfScreen.getText()+"3");{}
+		}
+		else if(e.getSource() == jbt4){
+			jtfScreen.setText(jtfScreen.getText()+"4");{}
+		}
+		else if(e.getSource() == jbt5){
+			jtfScreen.setText(jtfScreen.getText()+"5");{}
+		}
+		else if(e.getSource() == jbt6){
+			jtfScreen.setText(jtfScreen.getText()+"6");{}
+		}
+		else if(e.getSource() == jbt7){
+			jtfScreen.setText(jtfScreen.getText()+"7");{}
+		}
+		else if(e.getSource() == jbt8){
+			jtfScreen.setText(jtfScreen.getText()+"8");{}
+		}
+		else if(e.getSource() == jbt9){
+			jtfScreen.setText(jtfScreen.getText()+"9");{}
+		}
+		else if(e.getSource()==jbtPlus){}
+		else if(e.getSource()==jbtMinus){}
+		else if(e.getSource()==jbtTimes){}
+		else if(e.getSource()==jbtDivides){}
+			}
+	}
 }
